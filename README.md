@@ -13,3 +13,6 @@ Please don't traverse near other blocks or near the wall.
 About A year ago, I try my best to handle a similar QLINK program in a week. It consumed me about 40 hours.
 Now This tiny program only consumed me about 6 hours.
 Just to Gain some confidence, yeah.
+
+### maintain1.0 ###
+Add two new functions:Score board & Press ENTER to pull current block down fastly.
