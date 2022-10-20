@@ -5,9 +5,11 @@ int timeStamp = 1;
 
 void gamewidget::init()
 {
-    this->resize(BLOCK_SIZE*WIDTH,BLOCK_SIZE*HEIGHT);
+    this->resize(BLOCK_SIZE*(WIDTH+2),BLOCK_SIZE*HEIGHT);
     this->setWindowTitle("俄罗斯方块儿真好玩儿！");
     srand((int)time (NULL));
+
+    this->score = 0;
 
     map=new box* [HEIGHT];
     for(int i=0;i<HEIGHT;i++) map[i]=new box [WIDTH];
@@ -29,9 +31,14 @@ void gamewidget::init()
     this->traverse = new QPushButton(this);
     traverse->move(-50,-50);
     traverse->setShortcut(Qt::Key_Space);
+
+    this->hell = new QPushButton(this);
+    hell->move(-50,-50);
+    hell->setShortcut(Qt::Key_Enter);
 }
 void gamewidget::nextOne()
 {
+    this->timer->start(300);
     int tryX = rand()%(WIDTH);
     while(tryX == 0 || tryX == WIDTH-1)
     {
@@ -52,6 +59,8 @@ void gamewidget::nextOne()
 
     this->curOne.group.clear();
     this->curOne.type=tryT;
+
+    this->curOne.towards = Item::UP;
     //this->curOne.type = 2;
     this->curOne.shuffle();
     for(int i = 0; i < 4; ++i)
@@ -92,6 +101,7 @@ void gamewidget::checkDel()
         else if(isFull == 1)
         {
             delLine.push_back(i);
+            ++score;
             for(int j = 0; j < WIDTH; ++j)
             {
                 map[i][j].stamp = 0;
@@ -176,6 +186,11 @@ void gamewidget::lambdaConnection()
             }
             update();
         }
+    });
+
+    connect(hell,&QPushButton::clicked,this,[=]()
+    {
+        this->timer->start(30);
     });
     connect(fall,&QPushButton::clicked,this,[=]()
     {
@@ -382,6 +397,8 @@ gamewidget::~gamewidget()
 void gamewidget::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
+    QString tmp = QString::number(score);
+    painter.drawText(BLOCK_SIZE*WIDTH + BLOCK_SIZE*0.5,0,BLOCK_SIZE,BLOCK_SIZE,Qt::AlignCenter,tmp);
     for(int i = 0; i < HEIGHT; ++i)
         for(int j = 0; j < WIDTH; ++j)
         {

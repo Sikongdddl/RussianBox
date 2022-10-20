@@ -26,10 +26,12 @@ private:
     QPushButton* moveLeft;
     QPushButton* moveRight;
     QPushButton* traverse;
+    QPushButton* hell;
     QTimer *timer;
     void init();
 public:
     Item curOne;
+    int score;
     std::vector<Item::locat> nextPos;
     std::vector<Item::locat> formerPos;
     gamewidget();
