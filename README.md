@@ -1,7 +1,7 @@
 # RussianBox
 
 ### Desciption ###
-Simple and ugly Russian box.Maintained by Qt windwos.Codes are in master branch.
+Simple and ugly Russian box.Maintained by Qt windows.Codes are in master branch.
 
 ### Help ###
 Press S to start, A&D to move left or right. Press BLANK to traverse your block.
