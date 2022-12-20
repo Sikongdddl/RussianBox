@@ -348,6 +348,7 @@ void gamewidget::lambdaConnection()
     connect(traverse, &QPushButton::clicked,this,[=]()
     {
         formerPos.clear();
+        nextPos.clear();
         for(int i = 0; i < 4; ++i)//storage former position
         {
             int nextX = curOne.group[i].x;
@@ -363,6 +364,37 @@ void gamewidget::lambdaConnection()
         this->curOne.towards = (Item::toward)curTowards;
         this->curOne.shuffle();
 
+        for(int i = 0; i < 4; ++i)//calculate nextPos
+        {
+            int nextX = curOne.group[i].x;
+            int nextY = curOne.group[i].y;
+            Item::locat tmp;
+            tmp.x = nextX;
+            tmp.y = nextY;
+            nextPos.push_back(tmp);
+        }
+        for(int i = 0; i < 4; ++i)//check if crash: then don't traverse
+        {
+            int rowTmp = nextPos[i].y;
+            int colTmp = nextPos[i].x;
+            if(map[rowTmp][colTmp].type != 0 && map[rowTmp][colTmp].stamp != curOne.stamp&&map[rowTmp][colTmp].stamp!=0)//crash
+            {
+                int curTowards = this->curOne.towards;
+                if(curTowards == 0)
+                {
+                   curTowards = 3;
+                }
+                else
+                {
+                    curTowards = ( curTowards -1 );
+                }
+                this->curOne.towards = (Item::toward)curTowards;
+                this->curOne.shuffle();
+                return;
+            }
+        }
+
+        //traverse
         for(int i = 0; i < 4; ++i)//clear formerPos
         {
             int row = formerPos[i].y;
