@@ -16,3 +16,6 @@ Just to Gain some confidence, yeah.
 
 ### maintain1.0 ###
 Add two new functions:Score board & Press ENTER to pull current block down fastly.
+
+### maintain2.0 ###
+Fix traverse Bug when doing traverse near the wall and other exist blocks.Now you can't traverse your current block if crush will happen.
